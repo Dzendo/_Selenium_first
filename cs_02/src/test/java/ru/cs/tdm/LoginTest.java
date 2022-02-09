@@ -1,6 +1,5 @@
 package ru.cs.tdm;
 // https://habr.com/ru/post/502292/
-//import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.BeforeClass;
@@ -9,7 +8,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -35,8 +33,6 @@ public class LoginTest {
     public static void setup() {
         // определение пути до драйвера и его настройка (берется из файла)
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-        //WebDriverManager.chromedriver().setup();
-        String chrome = ConfProperties.getProperty("chromedriver");
         // создание экземпляра драйвера (т.к. он объявлен в качестве переменной):
         driver = new ChromeDriver();
 
