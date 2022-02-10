@@ -11,7 +11,7 @@ import java.time.Duration;
 
 
 /**
- * Пользователь открывает страницу аутентификации;
+ * при выходе на http://tdms-srv2a:444/client/#objects/ открывает страницу аутентификации;
  * Пользователь производит ввод валидных логина и пароля;
  * Пользователь удостоверяется в успешной аутентификации — об этом свидетельствует имя пользователя в верхнем правом углу окна;
  * Пользователь осуществляет выход из аккаунта путем нажатия на имя пользователя в верхнем правом углу окна с последующим нажатием на кнопку «Выйти…».
@@ -20,10 +20,10 @@ import java.time.Duration;
  */
 
 
-public class LoginTest {
+public class LoginTestTDM {
     // объявления статических переменных на созданные ранее классы-страницы
-    public static LoginPage loginPage;
-    public static ProfilePage profilePage;
+    public static LoginPageTDM loginPage;
+    public static FacePageTDM facePage;
     // Сюда же вынесем переменную для драйвера
     public static WebDriver driver;
     /**
@@ -33,22 +33,21 @@ public class LoginTest {
     public static void setup() {
         // определение пути до драйвера и его настройка (берется из файла)
         System.setProperty("webdriver.chrome.driver", ConfProperties.getProperty("chromedriver"));
-
         // создание экземпляра драйвера (т.к. он объявлен в качестве переменной):
         driver = new ChromeDriver();
 
         // Создаем экземпляры классов созданных ранее страниц, и присвоим ссылки на них.
         // В качестве параметра указываем созданный перед этим объект driver,
         // который передается конструкторам класса, созданным ранее:
-        loginPage = new LoginPage(driver);
-        profilePage = new ProfilePage(driver);
+        loginPage = new LoginPageTDM(driver);
+        facePage = new FacePageTDM(driver);
         //окно разворачивается на полный экран
         driver.manage().window().maximize();
         // задержка на выполнение теста = 10 сек.
         //driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); //Deprecate 3.14
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));  // New 4.1.2
         //получение ссылки на страницу входа из файла настроек
-        driver.get(ConfProperties.getProperty("loginpage")); }
+        driver.get(ConfProperties.getProperty("loginpageTDM")); }
 
     /**
      * тестовый метод для осуществления аутентификации
@@ -56,29 +55,25 @@ public class LoginTest {
     @Test
     public void loginTest() {
         //получение доступа к методам класса LoginPage для взаимодействия с элементами страницы
-        //значение login/password берутся из файла настроек по аналогии с chromedriver
-        //и loginpage
+        //значение login/password берутся из файла настроек по аналогии с chromedriver и loginpage
         //вводим логин
-        loginPage.inputLogin(ConfProperties.getProperty("login"));
-        //нажимаем кнопку входа
-        loginPage.clickLoginBtn();
+        loginPage.inputLogin(ConfProperties.getProperty("loginTDM"));
         //вводим пароль
-        loginPage.inputPasswd(ConfProperties.getProperty("password"));
+        loginPage.inputPasswd(ConfProperties.getProperty("passwordTDM"));
         //нажимаем кнопку входа
         loginPage.clickLoginBtn();
+
         //получаем отображаемый логин
-        profilePage.entryMenu();
-        String user = profilePage.getUserName();
+        String user = facePage.getUserName();
         //и сравниваем его с логином из файла настроек
-        Assert.assertEquals(ConfProperties.getProperty("login"), user);
-        //profilePage.entryMenu();
+        Assert.assertEquals(ConfProperties.getProperty("loginTDM"), user);
     }
 // В этом методе осуществляется вход в меню пользователя
 // и нажатие кнопки «Выйти», чтобы разлогиниться.
     @AfterClass
     public static void tearDown() {
-        //profilePage.entryMenu();
-        profilePage.userLogout();
+        facePage.entryMenu();
+        facePage.userLogout();
         driver.quit();   //  закрытия окна браузера
     }
 }
