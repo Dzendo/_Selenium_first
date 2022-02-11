@@ -70,6 +70,17 @@ public class LoginTestTDM {
 // и нажатие кнопки «Выйти», чтобы разлогиниться.
     @AfterClass
     public static void tearDown() {
+        mainViewHeaderPage.ClickTDMSWeb();
+        mainViewHeaderPage.ClickDesktop();
+        mainViewHeaderPage.ClickObjects();
+        mainViewHeaderPage.ClickMail();
+        mainViewHeaderPage.ClickHelp();
+
+        mainViewHeaderPage.InputSearch("Лебедев");
+        mainViewHeaderPage.ClickSearch();
+
+        mainViewHeaderPage.ClickMessages();
+        mainViewHeaderPage.CloseMessages();
         mainViewHeaderPage.entryMenu();
         mainViewHeaderPage.userLogout();
         driver.quit();   //  закрытия окна браузера
