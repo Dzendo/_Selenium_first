@@ -27,6 +27,7 @@ public class LoginPageTDM {
      */
     //@FindBy(xpath = "//input [contains(@id, 'textfield-1054-inputEl')]")
     @FindBy(xpath = "//span[contains(text(),'Пользователь:')]/ancestor::label/following-sibling::div//input")
+    // @FindBy(xpath = "//input[contains(@placeholder,'Пользователь')]")  // Тема 2
     //@FindBy(xpath = "//span[contains(text(),'Пользователь:')]/../../..//input")
     //@FindBy(xpath = "//input [contains(@type, 'text') and contains(@class, 'x-form-field') and contains(@class, 'x-form-required-field')]")
     private WebElement loginField;
@@ -35,7 +36,8 @@ public class LoginPageTDM {
      * определение локатора поля ввода пароля
      */
     //@FindBy(xpath = "//input [contains(@id,'textfield-1055-inputEl')]")
-    @FindBy(xpath = "//input[contains(@type, 'password')]")
+    // @FindBy(xpath = "//input[contains(@placeholder,'Пароль')]")  // Тема 2
+    @FindBy(xpath = "//input[contains(@type, 'password')]")   // Тема 1,2
     private WebElement passwdField;
 
     /**

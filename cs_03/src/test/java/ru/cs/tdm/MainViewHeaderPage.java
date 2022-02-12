@@ -24,8 +24,8 @@ public class MainViewHeaderPage {
         this.driver = driver; }
     /**
      *
-     * в body вложена панель меню сверху  //div[@id="mainView_header"]
-     * Потом два вложения  //div[@id="mainView_header-innerCt"]//div[@id="mainView_header-targetEl"]
+     * В body вложена панель меню сверху  //div[@id="mainView_header"]
+     * Потом через два вложения  //div[@id="mainView_header-innerCt"]//div[@id="mainView_header-targetEl"]
      * и третье вложение 8 сестринских
      * //div[@id="mainHeaderText"] -  внутри TDMSWeb //*[@id="mainHeaderText"]/span/b/a
      * //div[@id="container-1061"] - Остальные пункты меню
@@ -40,8 +40,13 @@ public class MainViewHeaderPage {
      *      //a[@id="button-1096"] - найти
      *      здесь еще лупа
      *      здесь еще стрелочка для вызлва подменю ::after flex
+     *
+     *      Здесь еще есть скрытая кнопка //a[@id="button-1087"] невидимая
+     *      в нее вложено куча span и она пристроена под имя пользователя
+     *      &nbsp что это за поле для меня загадка - может погашенное может костыль
      * //a[@id="button-1097"] - колокольчик
-     * //а[@id="button-1098"] - имя пользователя и раскрывающееся меню с выходо
+     *      и внутри него лежит //*[@id="ext-element-8"] - цифра сообщений
+     * //а[@id="button-1098"] - имя пользователя и раскрывающееся меню с выходом
      *          //span[@id="button-1098-btnInnerEl"]
      *
      * Сильно ниже div для подменю и в нем
@@ -121,9 +126,8 @@ public class MainViewHeaderPage {
      */
     @FindBy(xpath = "//input[contains(@placeholder,'Найти')]")
     private WebElement SearchInput;
-    public Boolean ClickSearch() {
+    public Boolean ClickSearchEnter() {
         System.out.println("нажатия кнопки Найти");
-        SearchInput.click();
         Actions action = new Actions(driver);
         action.sendKeys(Keys.ENTER).perform();
         return true;
@@ -133,7 +137,22 @@ public class MainViewHeaderPage {
             SearchInput.sendKeys(search);
             return true;
     }
-
+    /**
+     * Крестик, Лупа и подменю Расширенный поиск
+     * #tdmsSearch-1055-trigger-search document.querySelector("#tdmsSearch-1055-trigger-search")
+     * //*[@id="tdmsSearch-1055-trigger-search"]
+     * /html/body/div[1]/div/div/div[6]/div/div/div[3] - лупа
+     */
+    /**
+     * метод для нажатия кнопки Лупа
+     */
+    @FindBy(xpath = "//input[contains(@placeholder,'Найти')]")
+    private WebElement magnifieBtn;
+    public Boolean ClickMagnifier() {
+        System.out.println("нажать на лупу - поиск");
+        magnifieBtn.click();
+        return true;
+    }
     /**
      * метод для нажатия кнопки Сообщения
      */
@@ -227,5 +246,15 @@ public class MainViewHeaderPage {
     public void userLogout() {
         System.out.println("нажатия кнопки (пункта меню) выхода из аккаунта");
             logoutBtn.click();
+    }
+    /**
+     * определение кнопки ДА - подтрерждение выхода из аккаунта
+     */
+    //@FindBy(xpath = "//*[@id='button-1274']")   // //*[@id="button-1274"] //*[@id="button-1161"]
+    @FindBy(xpath = "//span[text()='Да']/ancestor::a")
+    private WebElement logoutOKBtn;
+    public void logoutOKBtn() {
+        System.out.println("нажатия кнопки кнопки ДА - подтрерждение выхода из аккаунта");
+        logoutOKBtn.click();
     }
 }

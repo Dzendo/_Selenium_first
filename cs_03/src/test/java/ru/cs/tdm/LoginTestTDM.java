@@ -54,7 +54,7 @@ public class LoginTestTDM {
     public void loginTest() {
         //получение доступа к методам класса LoginPage для взаимодействия с элементами страницы
         //значение login/password берутся из файла настроек по аналогии с chromedriver и loginpage
-        //вводим логин
+        //вводим логин  ХАЛТУПА - только тема 1
         loginPage.inputLogin(ConfProperties.getProperty("loginTDM"));
         //вводим пароль
         loginPage.inputPasswd(ConfProperties.getProperty("passwordTDM"));
@@ -62,7 +62,7 @@ public class LoginTestTDM {
         loginPage.clickLoginBtn();
 
         //получаем отображаемый логин
-        String user = mainViewHeaderPage.getFirstUserName();
+        String user = mainViewHeaderPage.getFirstUserName();   // Халтура - button
         //и сравниваем его с логином из файла настроек
         Assert.assertEquals(ConfProperties.getProperty("loginTDM"), user);
     }
@@ -76,13 +76,16 @@ public class LoginTestTDM {
         mainViewHeaderPage.ClickMail();
         mainViewHeaderPage.ClickHelp();
 
+        mainViewHeaderPage.ClickObjects();
         mainViewHeaderPage.InputSearch("Лебедев");
-        mainViewHeaderPage.ClickSearch();
+        mainViewHeaderPage.ClickSearchEnter();   // КОСТЫЛЬ посылаю Enter вместо Лупы
+        // mainViewHeaderPage.ClickMagnifier(); // не работает
 
         mainViewHeaderPage.ClickMessages();
-        mainViewHeaderPage.CloseMessages();
-        mainViewHeaderPage.entryMenu();
+        mainViewHeaderPage.CloseMessages();      // КОСТЫЛЬ посылаю ESC вместо крестика закрытия окна
+        mainViewHeaderPage.entryMenu();         // Халтура - button
         mainViewHeaderPage.userLogout();
+        mainViewHeaderPage.logoutOKBtn();
         driver.quit();   //  закрытия окна браузера
     }
 }
