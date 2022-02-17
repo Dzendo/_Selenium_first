@@ -58,10 +58,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * метод для нажатия кнопки TDMSWeb
      */
     @FindBy(xpath = "//a[contains(text(),'TDMS Web')]")
-    private val tdmsWebBtn: WebElement? = null
+    private lateinit var tdmsWebBtn: WebElement
     fun ClickTDMSWeb(): Boolean {
         println("нажатия кнопки TDMSWeb")
-        tdmsWebBtn!!.click()
+        tdmsWebBtn.click()
         if (!tdmsWebBtn.isSelected) {  // class aria-pressd = true/false
             //      System.out.println("NOT tdmsWebBtn.isSelected()");
         }
@@ -74,10 +74,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     @FindBy(xpath = "//a[contains(@href,'#desktop')]") //@FindBy(xpath = "//b[contains(text(),'РАБОЧИЙ СТОЛ')]/ancestor::a")
     //@FindBy(xpath = "//b[contains(text(),'РАБОЧИЙ СТОЛ')]/../../../..")
     //@FindBy(xpath = "//a[contains(@href,'#desktop')] and //b[contains(text(),'РАБОЧИЙ СТОЛ')]/ancestor::a") NO
-    private val desktopBtn: WebElement? = null
+    private lateinit var desktopBtn: WebElement
     fun ClickDesktop(): Boolean {
         println("нажатия кнопки РАБОЧИЙ СТОЛ")
-        desktopBtn!!.click()
+        desktopBtn.click()
         if (!desktopBtn.isSelected) {   // class aria-pressd = true/false
             //    System.out.println("NOT desktopBtn.isSelected()");
         }
@@ -90,10 +90,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     //@FindBy(xpath = "//a[contains(@href,'#objects')]") NO 27
     @FindBy(xpath = "//b[contains(text(),'ОБЪЕКТЫ')]/ancestor::a") //@FindBy(xpath = "//b[contains(text(),'ОБЪЕКТЫ')]/../../../..")
     //@FindBy(xpath = "//a[contains(@href,'#objects')] and //b[contains(text(),'ОБЪЕКТЫ')]/ancestor::a") NO
-    private val objectsBtn: WebElement? = null
+    private lateinit var objectsBtn: WebElement
     fun ClickObjects(): Boolean {
         println("нажатия кнопки ОБЪЕКТЫ")
-        objectsBtn!!.click()
+        objectsBtn.click()
         return objectsBtn.isSelected
     }
 
@@ -103,10 +103,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     @FindBy(xpath = "//a[contains(@href,'#mail')]") //@FindBy(xpath = "//b[contains(text(),'ПОЧТА')]/ancestor::a")
     //@FindBy(xpath = "//b[contains(text(),'ПОЧТА')]/../../../..")
     //@FindBy(xpath = "//a[contains(@href,'#mail')] and //b[contains(text(),'ПОЧТА')]/ancestor::a") NO
-    private val mailBtn: WebElement? = null
+    private lateinit var mailBtn: WebElement
     fun ClickMail(): Boolean {
         println("нажатия кнопки ПОЧТА")
-        mailBtn!!.click()
+        mailBtn.click()
         return mailBtn.isSelected
     }
 
@@ -116,10 +116,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     @FindBy(xpath = "//a[contains(@href,'#chat')]") //@FindBy(xpath = "//b[contains(text(),'СОВЕЩАНИЯ')]/ancestor::a")
     //@FindBy(xpath = "//b[contains(text(),'СОВЕЩАНИЯ')]/../../../..")
     //@FindBy(xpath = "//a[contains(@href,'#mail')] and //b[contains(text(),'ПОЧТА')]/ancestor::a") NO
-    private val chatBtn: WebElement? = null
+    private lateinit var chatBtn: WebElement
     fun ClickChat(): Boolean {
         println("нажатия кнопки СОВЕЩАНИЯ")
-        chatBtn!!.click()
+        chatBtn.click()
         return chatBtn.isSelected
     }
 
@@ -129,10 +129,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     @FindBy(xpath = "//a[contains(@href,'#help')]") //@FindBy(xpath = "//b[contains(text(),'ПОЧТА')]/ancestor::a")
     //@FindBy(xpath = "//b[contains(text(),'ПОЧТА')]/../../../..")
     //@FindBy(xpath = "//a[contains(@href,'#mail')] and //b[contains(text(),'ПОЧТА')]/ancestor::a") NO
-    private val helpBtn: WebElement? = null
+    private lateinit var helpBtn: WebElement
     fun ClickHelp(): Boolean {
         println("нажатия кнопки СПРАВКА")
-        helpBtn!!.click()
+        helpBtn.click()
         return helpBtn.isSelected
     }
 
@@ -140,7 +140,7 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * метод для нажатия кнопки Найти
      */
     @FindBy(xpath = "//input[contains(@placeholder,'Найти')]")
-    private val SearchInput: WebElement? = null
+    private lateinit var SearchInput: WebElement
     fun ClickSearchEnter(): Boolean {
         println("нажатия кнопки Найти")
         val action = Actions(driver)
@@ -150,7 +150,7 @@ class MainViewHeaderPage(private val driver: WebDriver) {
 
     fun InputSearch(search: String): Boolean {
         println("Ввод в InputSearch $search")
-        SearchInput!!.sendKeys(search)
+        SearchInput.sendKeys(search)
         return true
     }
     /**
@@ -163,10 +163,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * метод для нажатия кнопки Лупа
      */
     @FindBy(xpath = "//input[contains(@placeholder,'Найти')]")
-    private val magnifieBtn: WebElement? = null
+    private lateinit var magnifieBtn: WebElement
     fun ClickMagnifier(): Boolean {
         println("нажать на лупу - поиск")
-        magnifieBtn!!.click()
+        magnifieBtn.click()
         return true
     }
 
@@ -174,10 +174,10 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * метод для нажатия кнопки Сообщения
      */
     @FindBy(xpath = "//*[@id='button-1097']")
-    private val мessagesBtn: WebElement? = null
+    private lateinit var мessagesBtn: WebElement
     fun ClickMessages(): Boolean {
         println("нажатия кнопки Сообщения")
-        мessagesBtn!!.click()
+        мessagesBtn.click()
         return true
     }
 
@@ -191,7 +191,7 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     left: 0px; top: 0px;" id="ext-element-18"></div>
      */
     @FindBy(xpath = "//*[contains(text(),'Окно сообщений')]") // не будет работать
-    private val мessagesClose: WebElement? = null
+    private lateinit var мessagesClose: WebElement
     fun CloseMessages(): Boolean {
         println("закрыть Окно сообщений")
         val action = Actions(driver)
@@ -204,10 +204,14 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      */
     //@FindBy(xpath = "//*[@id='button-1089']")  // кандинский - Справка
     @FindBy(xpath = "//a[@id='button-1098']") // SYSADMIN
-    private val userMenu: WebElement? = null
+    private lateinit var userMenu: WebElement
     fun entryMenu() {
+       /* Actions(driver)
+            .moveToElement(userMenu)
+            .perform()
+        */
         println("нажатия кнопки меню пользователя")
-        userMenu!!.click()
+        userMenu.click()
     }
 
     /**
@@ -216,20 +220,20 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * //span[@id="button-1098-btnInnerEl"]
      */
     @FindBy(xpath = "//span[@id='button-1098-btnInnerEl']") //@FindBy(xpath = "//a[@id='button-1098']/span//span//span[2]")
-    private val userAccountName: WebElement? = null
+    private lateinit var userAccountName: WebElement
 
     /**
      * метод для получения имени пользователя из меню пользователя
      */
     val userName: String
-        get() = userAccountName!!.text
+        get() = userAccountName.text
 
     /**
      * метод для получения первого имени пользователя из меню пользователя
      */
     val firstUserName: String
         get() {
-            var userName = userAccountName!!.text
+            var userName = userAccountName.text
             userName = if (userName.contains(" ")) userName.split(" ").toTypedArray()[0] else userName
             println("получения первого имени пользователя из меню пользователя$userName")
             return userName
@@ -256,7 +260,7 @@ class MainViewHeaderPage(private val driver: WebDriver) {
             // .xpath("//*[contains(@class, 'account__name_hasAccentLetter')]")));
             // wait.until(ExpectedConditions.visibilityOfElementLocated(By
             //         .xpath("//*[contains(@class, 'personal-info-login__text personal-info-login__text_decorated')]")));
-            return userAccountName!!.text
+            return userAccountName.text
         }
 
     /**
@@ -264,10 +268,14 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      */
     //@FindBy(xpath = "//*[@id='menuitem-1103-textEl']")
     @FindBy(xpath = "//span[text()='Выход']//parent::a")
-    private val logoutBtn: WebElement? = null
+    private lateinit var logoutBtn: WebElement
     fun userLogout() {
         println("нажатия кнопки (пункта меню) выхода из аккаунта")
-        logoutBtn!!.click()
+      /*  Actions(driver)
+            .moveToElement(logoutBtn)
+            .perform()
+       */
+        logoutBtn.click()
     }
 
     /**
@@ -275,10 +283,40 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      */
     //@FindBy(xpath = "//*[@id='button-1274']")   // //*[@id="button-1274"] //*[@id="button-1161"]
     @FindBy(xpath = "//span[text()='Да']/ancestor::a")
-    private val logoutOKBtn: WebElement? = null
+    private lateinit var logoutOKBtn: WebElement
 
     fun logoutOKBtn() {
         println("нажатия кнопки кнопки ДА - подтрерждение выхода из аккаунта")
-        logoutOKBtn!!.click()
+       /* Actions(driver)
+            .moveToElement(logoutOKBtn)
+            .perform()
+
+        */
+        logoutOKBtn.click()
+    }
+    fun logout() {
+       // entryMenu()
+         Actions(driver)
+            .moveToElement(userMenu)
+            .perform()
+
+        println("нажатия кнопки меню пользователя")
+        userMenu.click()
+
+       // userLogout()
+        println("нажатия кнопки (пункта меню) выхода из аккаунта")
+          Actions(driver)
+              .moveToElement(logoutBtn)
+              .perform()
+
+        logoutBtn.click()
+
+       // logoutOKBtn()
+        println("нажатия кнопки кнопки ДА - подтрерждение выхода из аккаунта")
+         Actions(driver)
+             .moveToElement(logoutOKBtn)
+             .perform()
+
+        logoutOKBtn.click()
     }
 }

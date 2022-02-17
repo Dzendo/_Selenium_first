@@ -1,14 +1,14 @@
 package ru.cs.tdm365.cases
 
 import ru.cs.tdm365.data.ConfProperties
-import ru.cs.tdm365.pages.LoginPageTDM
+import ru.cs.tdm365.pages.LoginPage
 import ru.cs.tdm365.pages.MainViewHeaderPage
 import org.openqa.selenium.WebDriver
 import org.junit.jupiter.api.BeforeEach
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.chrome.ChromeDriver
 import org.junit.jupiter.api.AfterEach
-import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
 import org.junit.jupiter.api.Test
 import java.time.Duration
 
@@ -21,10 +21,10 @@ import java.time.Duration
  * Тест считается успешно пройденным в случае, когда пользователю удалось выполнить все вышеперечисленные пункты.
  */
 class LoginTestTDM {
-    // Сюда же вынесем переменную для драйвера
+    // переменная для драйвера
     private lateinit var driver: WebDriver
     // объявления переменных на созданные ранее классы-страницы
-    lateinit var loginPage: LoginPageTDM
+    lateinit var loginPage: LoginPage
     lateinit var mainViewHeaderPage: MainViewHeaderPage
 
     /**
@@ -38,15 +38,14 @@ class LoginTestTDM {
 
         // Создаем экземпляры классов созданных ранее страниц, и присвоим ссылки на них.
         // В качестве параметра указываем созданный перед этим объект driver,
-        // который передается конструкторам класса, созданным ранее:
-        loginPage = LoginPageTDM(driver)
+        loginPage = LoginPage(driver)
         mainViewHeaderPage = MainViewHeaderPage(driver)
         //окно разворачивается на полный экран
-        (driver).manage().window().maximize()
+        driver.manage().window().maximize()
         // задержка на выполнение теста = 10 сек.
-        (driver).manage().timeouts().implicitlyWait(Duration.ofSeconds(10)) // New 4.1.2
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10))
         //получение ссылки на страницу входа из файла настроек
-        (driver).get(ConfProperties.getProperty("loginpageTDM"))
+        driver.get(ConfProperties.getProperty("loginpageTDM"))
     }
 
     /**
@@ -56,7 +55,7 @@ class LoginTestTDM {
     fun loginTest() {
         //получение доступа к методам класса LoginPage для взаимодействия с элементами страницы
         //значение login/password берутся из файла настроек по аналогии с chromedriver и loginpage
-        //вводим логин  ХАЛТУПА - только тема 1
+        //вводим логин  ХАЛТУРА - только тема 1
         loginPage.inputLogin(ConfProperties.getProperty("loginTDM"))
         //вводим пароль
         loginPage.inputPasswd(ConfProperties.getProperty("passwordTDM"))
@@ -66,7 +65,7 @@ class LoginTestTDM {
         //получаем отображаемый логин
         val user = mainViewHeaderPage.firstUserName // Халтура - button
         //и сравниваем его с логином из файла настроек
-        Assertions.assertEquals(ConfProperties.getProperty("loginTDM"), user)
+        assertEquals(ConfProperties.getProperty("loginTDM"), user)
     }
 
     @AfterEach
