@@ -1,0 +1,6 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Created-By: Apache Maven
+Built-By: Asafh
+Build-Jdk: 1.7.0_13
+Main-Class: ru.cs.tdm365.examples.MainKt
