@@ -55,15 +55,34 @@ class MainViewHeaderPage(private val driver: WebDriver) {
      * // *[@id="menuitem-1103-textEl"] - выход
      */
     /**
-     * метод для нажатия кнопки TDMSWeb
+     * метод получения заголовка страницы
      */
+    //@FindBy(xpath = "//title") //[contains(text(),'TDMS Web')]") //*[@id="ext-element-4"]/head/title
+    @FindBy(xpath = "//*[@id='ext-element-4']/head/title") //[contains(text(),'TDMS Web')]") //*[@id="ext-element-4"]/head/title
+    private lateinit var title: WebElement
+    fun title(): String {
+        Thread.sleep(100)   // Костыль  --  аоменять на ожидание Selenium
+        var titleStr = driver.title
+        titleStr = if (titleStr.contains(" ")) titleStr.split(" ").toTypedArray()[0] else titleStr
+        println("Ответ title = $titleStr")
+        return titleStr
+    }
+    fun titleTDM(): String {
+        Thread.sleep(3000)
+        println("Запрос title = ${title.size}")
+        return title.text
+    }
+
+
     @FindBy(xpath = "//a[contains(text(),'TDMS Web')]")
     private lateinit var tdmsWebBtn: WebElement
     fun ClickTDMSWeb(): Boolean {
         println("нажатия кнопки TDMSWeb")
         tdmsWebBtn.click()
-        if (!tdmsWebBtn.isSelected) {  // class aria-pressd = true/false
-            //      System.out.println("NOT tdmsWebBtn.isSelected()");
+
+        //if (!tdmsWebBtn.isSelected) {  //  aria-pressed = true/false
+        if (!tdmsWebBtn.isSelected) {  //  aria-pressed = true/false
+                  println(" tdmsWebBtn.ariaRole = ${tdmsWebBtn.ariaRole}");
         }
         return tdmsWebBtn.isSelected
     }
@@ -78,8 +97,8 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     fun ClickDesktop(): Boolean {
         println("нажатия кнопки РАБОЧИЙ СТОЛ")
         desktopBtn.click()
-        if (!desktopBtn.isSelected) {   // class aria-pressd = true/false
-            //    System.out.println("NOT desktopBtn.isSelected()");
+        if (!desktopBtn.isSelected) {   // class aria-pressed = true/false
+               println(" desktopBtn = ${desktopBtn.ariaRole}");
         }
         return desktopBtn.isSelected
     }
@@ -243,7 +262,7 @@ class MainViewHeaderPage(private val driver: WebDriver) {
     // .xpath("//*[contains(@class, 'account__name_hasAccentLetter')]")));
     // wait.until(ExpectedConditions.visibilityOfElementLocated(By
     //         .xpath("//*[contains(@class, 'personal-info-login__text personal-info-login__text_decorated')]")));
-//WebDriverWait wait = new WebDriverWait(driver, 10);  //Deprecate 3.14
+    //WebDriverWait wait = new WebDriverWait(driver, 10);  //Deprecate 3.14
     /**
      * Интересный момент: в метод getUserName() пришлось добавить еще одно ожидание,
      * т.к. страница «тяжелая» и загружалась довольно медленно.

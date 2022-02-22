@@ -6,10 +6,13 @@ import org.junit.jupiter.api.BeforeEach
 import io.github.bonigarcia.wdm.WebDriverManager
 import org.openqa.selenium.chrome.ChromeDriver
 import org.junit.jupiter.api.AfterEach
+import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import ru.cs.tdm.code.Login
 import ru.cs.tdm.data.ConfProperties
 import java.time.Duration
+import kotlin.concurrent.thread
 
 /**
  * при выходе на http://tdms-srv2a:444/client/#objects/ открывает страницу аутентификации;
@@ -19,6 +22,7 @@ import java.time.Duration
  *
  * Тест считается успешно пройденным в случае, когда пользователю удалось выполнить все вышеперечисленные пункты.
  */
+@DisplayName("Testing MainViewHeaderTest")
 class MainViewHeaderTest {
     // переменная для драйвера
     private lateinit var driver: WebDriver
@@ -28,6 +32,7 @@ class MainViewHeaderTest {
     /**
      * осуществление первоначальной настройки
      */
+
     @BeforeEach
     fun setup() {
         // создание экземпляра драйвера (т.к. он объявлен в качестве переменной):
@@ -53,31 +58,39 @@ class MainViewHeaderTest {
     /**
      * тестовый метод для осуществления аутентификации
      */
+
     @Test
-    fun menuTest() {
-        mainViewHeaderPage.ClickTDMSWeb()
-        mainViewHeaderPage.ClickDesktop()
-        mainViewHeaderPage.ClickObjects()
-        mainViewHeaderPage.ClickMail()
-        mainViewHeaderPage.ClickChat()
-        mainViewHeaderPage.ClickHelp()
-        mainViewHeaderPage.ClickObjects()
-        mainViewHeaderPage.InputSearch("Лебедев")
-        mainViewHeaderPage.ClickSearchEnter() // КОСТЫЛЬ посылаю Enter вместо Лупы
-        // mainViewHeaderPage.ClickMagnifier(); // не работает
-        mainViewHeaderPage.ClickMessages()
-        mainViewHeaderPage.CloseMessages() // КОСТЫЛЬ посылаю ESC вместо крестика закрытия окна
+    @DisplayName("Testing each menu separately")
+    fun menuTest() = repeat(10) {
+            mainViewHeaderPage.ClickTDMSWeb()
+            assertEquals("TDM365", mainViewHeaderPage.title())
+            //assertEquals("TDM365", driver.title)
+            mainViewHeaderPage.ClickDesktop()
+            assertEquals("Рабочий", mainViewHeaderPage.title())
+            mainViewHeaderPage.ClickObjects()
+            assertEquals("TDM365", mainViewHeaderPage.title())
+            mainViewHeaderPage.ClickMail()
+            assertEquals("Почта", mainViewHeaderPage.title())
+            mainViewHeaderPage.ClickChat()
+            assertEquals("Совещания", mainViewHeaderPage.title())
+            mainViewHeaderPage.ClickHelp()
+            //assertEquals("Untitled", mainViewHeaderPage.title())
+            mainViewHeaderPage.ClickObjects()
+            mainViewHeaderPage.InputSearch("Лебедев")
+            mainViewHeaderPage.ClickSearchEnter() // КОСТЫЛЬ посылаю Enter вместо Лупы
+            // mainViewHeaderPage.ClickMagnifier(); // не работает
+            mainViewHeaderPage.ClickMessages()
+            mainViewHeaderPage.CloseMessages() // КОСТЫЛЬ посылаю ESC вместо крестика закрытия окна
 
-       // mainViewHeaderPage.entryMenu() // Халтура - button
-       // mainViewHeaderPage.entryMenu() // Халтура - button
+            // mainViewHeaderPage.entryMenu() // Халтура - button
+            // mainViewHeaderPage.entryMenu() // Халтура - button
 
-        //mainViewHeaderPage.userLogout()
-        //получаем отображаемый логин
-        //val user = mainViewHeaderPage.firstUserName // Халтура - button
-        //и сравниваем его с логином из файла настроек
-        //assertEquals(ConfProperties.getProperty("loginTDM"), user)
+            //mainViewHeaderPage.userLogout()
+            //получаем отображаемый логин
+            //val user = mainViewHeaderPage.firstUserName // Халтура - button
+            //и сравниваем его с логином из файла настроек
+            //assertEquals(ConfProperties.getProperty("loginTDM"), user)
     }
-
     @AfterEach
         fun tearDown() {
         Login(driver).loginOut()
